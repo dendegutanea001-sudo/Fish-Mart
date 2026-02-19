@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Tobostro | Premium Dry Fish Store</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<style>
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:#000;
+  color:#fff;
+}
+
+header{
+  padding:20px 60px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.left-header{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.back-btn{
+  background:transparent;
+  color:#FFEEAA;
+  border:1px solid rgba(255,255,255,0.2);
+  padding:6px 14px;
+  border-radius:20px;
+  text-decoration:none;
+  font-weight:500;
+}
+
+.back-btn:hover{
+  background:rgba(255,255,255,0.1);
+}
+
+.logo{
+  font-size:1.3rem;
+  font-weight:700;
+  color:#FFEEAA;
+}
+
+.cart-btn{
+  background:#FFEEAA;
+  color:#000;
+  padding:8px 18px;
+  border-radius:25px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.products{
+  padding:60px;
+}
+
+.products h2{
+  text-align:center;
+  color:#FFEEAA;
+  margin-bottom:50px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:35px;
+}
+
+.card{
+  background:rgba(255,255,255,0.05);
+  border-radius:18px;
+  padding:20px;
+  border:1px solid rgba(255,255,255,0.08);
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:translateY(-6px);
+}
+
+.card img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+  border-radius:12px;
+  margin-bottom:15px;
+}
+
+.price{
+  color:#FFEEAA;
+  font-weight:700;
+}
+
+select{
+  width:100%;
+  padding:8px;
+  border-radius:8px;
+  border:none;
+  margin:10px 0;
+}
+
+button{
+  background:#FFEEAA;
+  color:#000;
+  padding:8px;
+  width:100%;
+  border:none;
+  border-radius:20px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+/* CART PANEL */
+.cart-panel{
+  position:fixed;
+  right:-420px;
+  top:0;
+  width:380px;
+  height:100%;
+  background:#111;
+  padding:20px;
+  transition:0.4s;
+  overflow-y:auto;
+  z-index:999;
+}
+
+.cart-panel.active{
+  right:0;
+}
+
+.cart-item{
+  border-bottom:1px solid rgba(255,255,255,0.1);
+  padding:10px 0;
+}
+
+.remove-btn{
+  background:red;
+  color:#fff;
+  padding:4px 10px;
+  border-radius:10px;
+  font-size:12px;
+  margin-top:5px;
+  cursor:pointer;
+}
+
+input,textarea{
+  width:100%;
+  padding:8px;
+  margin-top:8px;
+  border-radius:6px;
+  border:none;
+}
+
+.checkout-btn{
+  background:#25D366;
+  margin-top:15px;
+}
+
+footer{
+  text-align:center;
+  padding:30px;
+  color:#777;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="left-header">
+    <a href="index.html" class="back-btn">← Back to Home</a>
+    <div class="logo">Tobostro</div>
+  </div>
+  <div class="cart-btn" onclick="toggleCart()">🛒 Cart (<span id="cart-count">0</span>)</div>
+</header>
+
+<section class="products">
+<h2>Premium Dry Fish Collection</h2>
+
+<div class="grid">
+
+<div class="card">
+<img src="dry anchovi.jpeg">
+<h3>Dry Anchovy</h3>
+<div class="price">₹480 / kg</div>
+<select id="q1">
+<option value="0.5">500g</option>
+<option value="1">1kg</option>
+<option value="2">2kg</option>
+</select>
+<button onclick="addToCart('Dry Anchovy',480,'q1')">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="Bombay duck.jpeg">
+<h3>Bombay Duck</h3>
+<div class="price">₹620 / kg</div>
+<select id="q2">
+<option value="0.5">500g</option>
+<option value="1">1kg</option>
+<option value="2">2kg</option>
+</select>
+<button onclick="addToCart('Bombay Duck',620,'q2')">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="Dry Prawns.jpg">
+<h3>Dry Prawns</h3>
+<div class="price">₹950 / kg</div>
+<select id="q3">
+<option value="0.5">500g</option>
+<option value="1">1kg</option>
+<option value="2">2kg</option>
+</select>
+<button onclick="addToCart('Dry Prawns',950,'q3')">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="Dry sardines.jpeg">
+<h3>Dry Sardines</h3>
+<div class="price">₹540 / kg</div>
+<select id="q4">
+<option value="0.5">500g</option>
+<option value="1">1kg</option>
+<option value="2">2kg</option>
+</select>
+<button onclick="addToCart('Dry Sardines',540,'q4')">Add to Cart</button>
+</div>
+
+</div>
+</section>
+
+<!-- CART PANEL -->
+<div class="cart-panel" id="cartPanel">
+<h3>Your Cart</h3>
+<div id="cart-items"></div>
+<h4>Total: ₹<span id="total">0</span></h4>
+
+<h4>Delivery Details</h4>
+<input type="text" id="name" placeholder="Full Name">
+<input type="text" id="phone" placeholder="Phone Number">
+<textarea id="address" placeholder="Delivery Address"></textarea>
+
+<button class="checkout-btn" onclick="checkout()">Pay Online</button>
+<button onclick="whatsappCheckout()">Order via WhatsApp</button>
+</div>
+
+<footer>
+© 2026 Tobostro. Premium Coastal Dry Fish.
+</footer>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let total = 0;
+
+function toggleCart(){
+document.getElementById("cartPanel").classList.toggle("active");
+}
+
+function addToCart(name,price,qtyId){
+let qty=parseFloat(document.getElementById(qtyId).value);
+let itemTotal=price*qty;
+cart.push({name,qty,price,itemTotal});
+localStorage.setItem("cart",JSON.stringify(cart));
+updateCart();
+}
+
+function removeItem(index){
+cart.splice(index,1);
+localStorage.setItem("cart",JSON.stringify(cart));
+updateCart();
+}
+
+function updateCart(){
+let container=document.getElementById("cart-items");
+container.innerHTML="";
+total=0;
+
+cart.forEach((item,index)=>{
+total+=item.itemTotal;
+container.innerHTML+=`
+<div class="cart-item">
+${item.name} (${item.qty}kg) - ₹${item.itemTotal}
+<div class="remove-btn" onclick="removeItem(${index})">Remove</div>
+</div>`;
+});
+
+document.getElementById("total").innerText=total;
+document.getElementById("cart-count").innerText=cart.length;
+}
+
+function checkout(){
+let name=document.getElementById("name").value;
+let phone=document.getElementById("phone").value;
+let address=document.getElementById("address").value;
+
+if(!name||!phone||!address){
+alert("Please fill delivery details.");
+return;
+}
+
+var options={
+key:"YOUR_RAZORPAY_KEY",
+amount:total*100,
+currency:"INR",
+name:"Tobostro",
+description:"Dry Fish Order",
+handler:function(response){
+alert("Payment Successful! ID: "+response.razorpay_payment_id);
+localStorage.removeItem("cart");
+location.reload();
+}
+};
+var rzp=new Razorpay(options);
+rzp.open();
+}
+
+function whatsappCheckout(){
+let message="Hello Tobostro,%0AOrder Details:%0A";
+cart.forEach(item=>{
+message+=`${item.name} (${item.qty}kg) - ₹${item.itemTotal}%0A`;
+});
+message+=`Total: ₹${total}`;
+window.open("https://wa.me/919076370021?text="+message);
+}
+
+updateCart();
+
+
+</script>
+
+</body>
+</html>
